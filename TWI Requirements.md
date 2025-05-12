@@ -12,19 +12,19 @@ The workload identity problem space can be defined by the following set of key s
 
 2. Workloads can be deployed in a variety of environments:  
 
-&nbsp;&nbsp;&nbsp;* On-premises  
-&nbsp;&nbsp;&nbsp;* In the public cloud  
-&nbsp;&nbsp;&nbsp;* On remotely managed IoT devices  
-&nbsp;&nbsp;&nbsp;* On users’ personal devices  
+   * On-premises  
+   * In the public cloud  
+   * On remotely managed IoT devices  
+   * On users’ personal devices  
 
 3. Workloads can take a wide variety of shapes:  
 
-&nbsp;&nbsp;&nbsp;* Confidential virtual machines  
-&nbsp;&nbsp;&nbsp;* Confidential containers and Kubernetes pods  
-&nbsp;&nbsp;&nbsp;* Enclaves  
-&nbsp;&nbsp;&nbsp;* Serverless computing (lambdas, step functions, etc.)  
-&nbsp;&nbsp;&nbsp;* Cloud and on-premises services such as database services, queueing services and the like  
-&nbsp;&nbsp;&nbsp;* Managed services, including SaaS products  
+   * Confidential virtual machines  
+   * Confidential containers and Kubernetes pods  
+   * Enclaves  
+   * Serverless computing (lambdas, step functions, etc.)  
+   * Cloud and on-premises services such as database services, queueing services and the like  
+   * Managed services, including SaaS products  
 
 4. Workloads might be standalone or composite (composite Workloads being those consisting of multiple components from deployment through to decommissioning and potentially spanning devices or having components residing on the same physical device).  
 
@@ -32,23 +32,23 @@ The workload identity problem space can be defined by the following set of key s
 
 6. Workload Instances might be short- or long-lived with different requirements applied to each kind:  
 
-&nbsp;&nbsp;&nbsp;* For short-lived Workloads, typified by container and serverless Workloads, it may be important to issue credentials quickly and reliably so as not to introduce performance and reliability penalties related to multiple and/or expensive round-trips involved in credential issuance.  
-&nbsp;&nbsp;&nbsp;* For long-lived Workloads, the lifetime of a Workload is likely to exceed that of the credentials issued to it, requiring ability to renew and/or revoke credentials in response to governance requirements and/or emerging threats without compromising overall system reliability.  
+   * For short-lived Workloads, typified by container and serverless Workloads, it may be important to issue credentials quickly and reliably so as not to introduce performance and reliability penalties related to multiple and/or expensive round-trips involved in credential issuance.  
+   * For long-lived Workloads, the lifetime of a Workload is likely to exceed that of the credentials issued to it, requiring ability to renew and/or revoke credentials in response to governance requirements and/or emerging threats without compromising overall system reliability.  
 
 7. Workload Identity systems and solutions must be governable, including the following capabilities:  
 
-&nbsp;&nbsp;&nbsp;* Maintaining control over and a history of all policies and decisions involved in issuing and evaluating Workload Identities and Credentials.  
-&nbsp;&nbsp;&nbsp;* Ability to identify, isolate and remedy vulnerable Workloads in production quickly, such as when new threats are discovered or new attacks detected.  
-&nbsp;&nbsp;&nbsp;* Additional requirements to Workload Identity governance are specified in the Workload Identity Governance pattern **\[3\].**  
+   * Maintaining control over and a history of all policies and decisions involved in issuing and evaluating Workload Identities and Credentials.  
+   * Ability to identify, isolate and remedy vulnerable Workloads in production quickly, such as when new threats are discovered or new attacks detected.  
+   * Additional requirements to Workload Identity governance are specified in the Workload Identity Governance pattern **\[3\].**  
 
 8. Workload Identity must coexist in a predictable manner with regular datacenter maintenance operations such as Workload migration.  
 
-&nbsp;&nbsp;&nbsp;* Operations that would change the Workload Credentials (e.g., by modifying some of the claims) should require redeployment where the old Workload is torn down and the new one stood up in its place with different Workload Credentials.  
-&nbsp;&nbsp;&nbsp;* Operations that would preserve the Workload Credentials, such as migration within the datacenter between equivalent hardware **\[ISSUE 2\]** instances, need not require new Workload Credentials to be issued.  
+   * Operations that would change the Workload Credentials (e.g., by modifying some of the claims) should require redeployment where the old Workload is torn down and the new one stood up in its place with different Workload Credentials.  
+   * Operations that would preserve the Workload Credentials, such as migration within the datacenter between equivalent hardware **\[ISSUE 2\]** instances, need not require new Workload Credentials to be issued.  
 
 9. Workload Identity must handle the presence of reverse proxies including serially deployed reverse proxies.
 
-&nbsp;&nbsp;&nbsp;* If a client and a server talk over a series of reverse proxies with some doing traffic inspection (e.g., checking for malicious content), others modifying the traffic (redacting or adding content), what identities are then presented at each hop?  
+   * If a client and a server talk over a series of reverse proxies with some doing traffic inspection (e.g., checking for malicious content), others modifying the traffic (redacting or adding content), what identities are then presented at each hop?  
 
 So what does all that mean to Confidential Computing style Remote Attestation?
 
@@ -70,37 +70,41 @@ This section goes over the requirements listed above and adds additional clarifi
 
 1. Requirement 1 states:
 
-&nbsp;&nbsp;&nbsp;*The specifications of Workload Identities, Workload Credentials and authentication/authorization mechanisms developed by the TWI SIG must all be portable, standards-based, and capable of supporting transport-level and application-level scenarios, as well as federation.*  
+   *The specifications of Workload Identities, Workload Credentials and authentication/authorization mechanisms developed by the TWI SIG must all be portable, standards-based, and capable of supporting transport-level and application-level scenarios, as well as federation.*  
 
-&nbsp;&nbsp;&nbsp;In the case of Workloads developed in-house, integration of Workload Credential issuance with CI/CD mechanisms is highly desirable.  
-&nbsp;&nbsp;&nbsp;In the case of managed Workloads or Workloads obtained from trusted sources, other forms of provenance establishment can be used, with automation and accountability remaining key features  
-&nbsp;&nbsp;&nbsp;Both code itself and the configuration/environment in which the code is deployed are important in Workload Credential issuance; the environment may include attributes such as whether the code is deployed in test or production, what physical location the computation takes place in, and others.
+   In the case of Workloads developed in-house, integration of Workload Credential issuance with CI/CD mechanisms is highly desirable.
+
+   In the case of managed Workloads or Workloads obtained from trusted sources, other forms of provenance establishment can be used, with automation and accountability remaining key features.
+
+   Both code itself and the configuration/environment in which the code is deployed are important in Workload Credential issuance; the environment may include attributes such as whether the code is deployed in test or production, what physical location the computation takes place in, and others.
 
      
 2. Requirement 8 states: 
 
-&nbsp;&nbsp;&nbsp;*Workload Identity must coexist in a predictable manner with regular datacenter maintenance operations such as Workload migration.*  
+   *Workload Identity must coexist in a predictable manner with regular datacenter maintenance operations such as Workload migration.*  
 
-&nbsp;&nbsp;&nbsp;1. *Operations that would change the Workload Credentials (e.g., by modifying some of the claims) should require redeployment where the old Workload is torn down and the new one stood up in its place with different Workload Credentials.*  
-&nbsp;&nbsp;&nbsp;2. *Operations that would preserve the Workload Credentials, such as migration within the datacenter between equivalent hardware instances, need not require new Workload Credentials to be issued.*
+   * *Operations that would change the Workload Credentials (e.g., by modifying some of the claims) should require redeployment where the old Workload is torn down and the new one stood up in its place with different Workload Credentials.*   
+   * *Operations that would preserve the Workload Credentials, such as migration within the datacenter between equivalent hardware instances, need not require new Workload Credentials to be issued.*
 
-&nbsp;&nbsp;&nbsp;Consider the following two nearly-equivalent cases: a Workload is migrating from the Berlin datacenter to Frankfurt. In one case, the original Workload Credential contains a claim “Location \= Germany”. In the other case, the claim is “Location \= Berlin”. From the standpoint of this requirement, the first case does not change the claims of the Workload and the migration operation does not require the Credential to be reissued. In the second case, the migration operation must be treated as a re-deployment so that the Location claim can be updated to Frankfurt.
+   Consider the following two nearly-equivalent cases: a Workload is migrating from the Berlin datacenter to Frankfurt. In one case, the original Workload Credential contains a claim “Location \= Germany”. In the other case, the claim is “Location \= Berlin”. From the standpoint of this requirement, the first case does not change the claims of the Workload and the migration operation does not require the Credential to be reissued. In the second case, the migration operation must be treated as a re-deployment so that the Location claim can be updated to Frankfurt.
 
 # Issues
 
 TODO: Resolve all of these before we publish the final version of this document
 
-1. Does this apply to different components implementing different "sub-services" and to e.g. CPU-to-GPU alike?  
-2. Perhaps a definition (or examples) of "equivalent" or "inequivalent" would be helpful.  
-&nbsp;&nbsp;&nbsp;Here are some examples of platform operations that might change the security posture of a Workload but that are unknown to the Workload and can result in the Workload unknowingly passing an identity with stale claims.  
-&nbsp;&nbsp;&nbsp;a. Workloads running on the same CPU/PSP when the CPU/PSP firmware is transparently updated to a new version.  
-&nbsp;&nbsp;&nbsp;b. Workloads migrated to different hardware (a different CPU) in the same rack running the same firmware.  
-&nbsp;&nbsp;&nbsp;c. Workloads migrated to hardware in a different datacenter (think "availability zone") in physically proximate geography and identical governmental jurisdiction.  
-&nbsp;&nbsp;&nbsp;d. Attestation evidence can become outdated at any time.  
-&nbsp;&nbsp;&nbsp;e. An attestation report can be requested at any time.  
-&nbsp;&nbsp;&nbsp;f. Attestation endorsement/verification can be performed at any time.
+1. Does this apply to different components implementing different "sub-services" and to e.g. CPU-to-GPU alike?
+2. Perhaps a definition (or examples) of "equivalent" or "inequivalent" would be helpful.
 
-&nbsp;&nbsp;&nbsp;This pattern suggests the need for leveraging identity token lifetime to allow customers to set how long they are willing to accept the risk of stale attestation evidence versus accepting the performance implications of frequent renewals to preserve freshness.
+   Here are some examples of platform operations that might change the security posture of a Workload but that are unknown to the Workload and can result in the Workload unknowingly passing an identity with stale claims.
+
+   a. Workloads running on the same CPU/PSP when the CPU/PSP firmware is transparently updated to a new version.  
+   b. Workloads migrated to different hardware (a different CPU) in the same rack running the same firmware.  
+   c. Workloads migrated to hardware in a different datacenter (think "availability zone") in physically proximate geography and identical governmental jurisdiction.  
+   d. Attestation evidence can become outdated at any time.  
+   e. An attestation report can be requested at any time.  
+   f. Attestation endorsement/verification can be performed at any time.
+
+   This pattern suggests the need for leveraging identity token lifetime to allow customers to set how long they are willing to accept the risk of stale attestation evidence versus accepting the performance implications of frequent renewals to preserve freshness.
 
 # References
 
