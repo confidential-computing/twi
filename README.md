@@ -1,2 +1,2 @@
 # twi
-Trusted Workload Identity
+Trustworthy Workload Identity
