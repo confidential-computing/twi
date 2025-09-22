@@ -9,7 +9,13 @@ _Trust_ is a decision, _trustworthiness_ is an externally verifiable/attributabl
 - **Workload Identifier** is a stable construct, represented by a Workload Identity Document, around which Relying Parties can form long-lived Workload authorization policies.
 - **Workload Identity** is the alias of the Workload as perceived by the Relying Party based on which Workload Identifier is presented to it by the Workload Instance.
 - **Workload Credential** is an ephemeral representation of a Workload Identifier, that can be short- or long-lived and which is used to represent and prove Workload Identity to a Relying Party (WIMSE calls this "identity credentials").
-- **Workload Provenance** is a unique linkage between a Workload Credential and the trusted entities (such as a vendor, developer, or credential issuer) responsible for the creation and/or attestation of the corresponding Workload.
+- **Workload Provenance** is the metadata describing the origin and composition of the Workload instance, as determined at Workload instantiation time. It remains unchanged for the duration of the Workload’s execution.[^SSDF-COMPAT-NOTE]
+- **Workload Credential Provenance** is the metadata about a Workload Credential creation, describing where, when and how it got issued — including the attestation policies effective at credential issuance time.[^SSDF-COMPAT-NOTE]
+- **Provenance Binding** is a unique linkage between a Workload (or Workload Credential) and its corresponding provenance record.
+  - A binding is said to be *strong* if it is anchored to the underlying [Root of Trust (RoT)](https://csrc.nist.gov/glossary/term/roots_of_trust), enabling audit of the integrity of the linkage - typically via attestation. 
+    Such a binding is non-repudiable, ensuring that the entity responsible for the Workload or Credential cannot later deny its origin or the integrity of its provenance.
+
+[^SSDF-COMPAT-NOTE]:  The definition of `Workload Provenance` and `Credential Provenance` is compatible with the definition of Provenance by [SSDF_GenAI_Profile](https://doi.org/10.6028/NIST.SP.800-218A): `"Metadata pertaining to the origination or source of specified data"`.
 
 ## Trustworthy Workload Identity Definition
 A **Workload Identity** is said to be **Trustworthy** _iff_ the following three properties hold true:
