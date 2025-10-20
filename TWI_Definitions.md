@@ -6,7 +6,9 @@ _Trust_ is a decision, _trustworthiness_ is an externally verifiable/attributabl
 ## Supporting Definitions
 - **Workload** as used in this document restricts the definition of the same term by WIMSE **\[1]** — “a running instance of software executing for a specific purpose” — to just that part of the code and configuration of the (WIMSE-defined) workload that is subject to Remote Attestation.
 - **Workload Identity Document** is a verifiable statement that binds the Workload to a cryptographic identity, including, at a minimum, a signed public key and, optionally, any number of additional claims.
-- **Workload Identifier** is a stable construct, represented by a Workload Identity Document, around which Relying Parties can form long-lived Workload authorization policies.
+- **Workload Identifier** is a construct, represented by a Workload Identity Document, around which Relying Parties can form Workload authorization policies.
+- **Stable Workload Identifier**: a Workload Identifier is considered Stable if it remains unchanged in the face of software and hardware changes (updates and rollbacks), so long as those updates and rollbacks are authorized, i.e., comply with the policy of what consitutes the allowed version(s) of the software and hardware in question.
+- **Stable Workload Authorization Policy**: a Workload authorization policy is considered Stable if it is formulated in relation to one or more Stable Workload Identifiers
 - **Workload Identity** is the alias of the Workload as perceived by the Relying Party based on which Workload Identifier is presented to it by the Workload Instance.
 - **Workload Credential** is an ephemeral representation of a Workload Identifier, that can be short- or long-lived and which is used to represent and prove Workload Identity to a Relying Party (WIMSE calls this "identity credentials").
 - **Workload Provenance** is a unique linkage between a Workload Credential and the trusted entities (such as a vendor, developer, or credential issuer) responsible for the creation and/or attestation of the corresponding Workload.
