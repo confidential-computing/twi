@@ -4,7 +4,7 @@ Version 1.0
 _Trust_ is a decision, _trustworthiness_ is an externally verifiable/attributable characteristic on which to base trust decisions.
 
 ## Supporting Definitions
-- **Workload** as used in this document restricts the definition of the same term by WIMSE **\[1]** — “a running instance of software executing for a specific purpose” — to just that part of the code and configuration of the (WIMSE-defined) workload that is subject to Remote Attestation.
+- **Workload** as used in this document restricts the definition of the same term by WIMSE **\[1]** — “an independently addressable and executable software entity” — to just that part of the code and configuration of the (WIMSE-defined) workload that is subject to Remote Attestation.
 - **Workload Identity Document** is a verifiable statement that binds the Workload to a cryptographic identity, including, at a minimum, a signed public key and, optionally, any number of additional claims.
 - **Workload Identifier** is a stable construct, represented by a Workload Identity Document, around which Relying Parties can form long-lived Workload authorization policies.
 - **Workload Identity** is the alias of the Workload as perceived by the Relying Party based on which Workload Identifier is presented to it by the Workload Instance.
