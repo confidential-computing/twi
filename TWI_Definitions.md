@@ -9,7 +9,7 @@ _Trust_ is a decision, _trustworthiness_ is an externally verifiable/attributabl
 - **Workload Identifier** is a stable construct, represented by a Workload Identity Document, around which Relying Parties can form long-lived Workload authorization policies.
 - **Workload Identity** is the alias of the Workload as perceived by the Relying Party based on which Workload Identifier is presented to it by the Workload Instance.
 - **Workload Credential** is an ephemeral representation of a Workload Identifier, that can be short- or long-lived and which is used to represent and prove Workload Identity to a Relying Party (WIMSE calls this "identity credentials").
-- **Workload Provenance** is a unique linkage between a Workload Credential and the trusted entities (such as a vendor, developer, or credential issuer) responsible for the creation and/or attestation of the corresponding Workload.
+- **Workload Provenance** is a verifiable linkage between a Workload Credential and the identifiable parties (such as a vendor, developer, or credential issuer) responsible for the creation and/or attestation of the corresponding Workload.
 
 ## Trustworthy Workload Identity Definition
 A **Workload Identity** is said to be **Trustworthy** _iff_ the following three properties hold true:
